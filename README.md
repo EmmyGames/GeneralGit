@@ -170,14 +170,6 @@ PascalCase refers to starting a name with a capital letter and then instead of u
 #### Never Use Spaces
 Re-enforcing [2.1.1](#2.1.1), never use spaces. Spaces can cause various engineering tools and batch processes to fail. Ideally your project's root also contains no spaces and is located somewhere such as `D:\Project` instead of `C:\Users\My Name\My Documents\Unity Projects`.
 
-<a name="2.1.3"></a>
-#### Never Use Unicode Characters And Other Symbols
-If one of your game characters is named 'Zoë', its folder name should be `Zoe`. Unicode characters can be worse than [Spaces](#2.1.2) for engineering tools and some parts applications don't support Unicode characters in paths either.
-
-Related to this, if your project has and your computer's user name has a Unicode character (i.e. your name is `Zoë`), any project located in your `My Documents` folder will suffer from this issue. Often simply moving your project to something like `D:\Project` will fix these mysterious issues.
-
-Using other characters outside `a-z`, `A-Z`, and `0-9` such as `@`, `-`, `_`, `,`, `*`, and `#` can also lead to unexpected and hard to track issues on other platforms, source control, and weaker engineering tools.
-
 <a name="structure-no-empty-folders"></a>
 #### No Empty Folders
 There simply shouldn't be any empty folders. They clutter the content browser.
@@ -206,24 +198,6 @@ Often in code style guides it is written that you should not pollute the global 
 
 Every asset should have a purpose, otherwise it does not belong in a project. If an asset is an experimental test and shouldn't be used by the project it should be put in a [`Developer`](#2.3) folder.
 
-<a name="2.2.2"></a>
-#### Reduce Migration Conflicts
-When working on multiple projects it is common for a team to copy assets from one project to another if they have made something useful for both.
-
-By placing all project specific assets in a top level folder you reduce the chance of migration conflict when importing those assets into a new project.
-
-<a name="2.2.2e1"></a>
-##### Master Material Example
-For example, say you created a master material in one project that you would like to use in another project so you migrated that asset over. If this asset is not in a top level folder, it may have a name like `Assets/MaterialLibrary/M_Master`. If the target project doesn't have a master material already, this should work without issue.
-
-As work on one or both projects progress their respective master materials may change to be tailored for their specific projects due to the course of normal development.
-
-The issue comes when, for example, an artist for one project created a nice generic modular set of static meshes and someone wants to include that set of static meshes in the second project. If the artist who created the assets used material instances based on `Assets/MaterialLibrary/M_Master` as they're instructed to, when a migration is performed there is a great chance of conflict for the previously migrated `Assets/MaterialLibrary/M_Master` asset.
-
-This issue can be hard to predict and hard to account for. The person migrating the static meshes may not be the same person who is familiar with the development of both project's master material, and they may not be even aware that the static meshes in question rely on material instances which then rely on the master material. The Migrate tool requires the entire chain of dependencies to work however, and so it will be forced to grab `Assets/MaterialLibrary/M_Master` when it copies these assets to the other project and it will overwrite the existing asset.
-
-It is at this point where if the master materials for both projects are incompatible in _any way_, you risk breaking possibly the entire material library for a project as well as any other dependencies that may have already been migrated, simply because assets were not stored in a top level folder. The simple migration of static meshes now becomes a very ugly task.
-
 <a name="2.2.3"></a>
 #### Samples, Templates, and 3rd Party Content Are Risk-Free
 An extension to [2.2.2](#2.2.2), if a team member decides to add sample content, template files, or assets they bought from a 3rd party, it is guaranteed that these new assets will not interfere with the project in any way unless your project's top level folder is not uniquely named.
@@ -246,41 +220,14 @@ If these modular assets were placed in a Developer folder, the world builder sho
 
 Once the assets are ready for use, an artist simply has to move the assets into the project specific folder. This is essentially 'promoting' the assets from experimental to production.
 
-
-<a name="levels"></a>
-### 2.4 All [Scene](#terms-level-map) Files Belong In A Folder Called Levels
-Level files are incredibly special and it is common for every project to have its own map naming system, especially if they work with sub-levels or streaming levels. No matter what system of map organization is in place for the specific project, all levels should belong in `Assets/ProjectNameName/Levels`.
-
-Being able to tell someone to open a specific map without having to explain where it is is a great time saver and general 'quality of life' improvement. It is common for levels to be within sub-folders of `Levels`, such as `Levels/Campaign1/` or `Levels/Arenas`, but the most important thing here is that they all exist within `Assets/ProjectNameName/Levels`.
-
-This also simplifies the job of cooking for engineers. Wrangling levels for a build process can be extremely frustrating if they have to dig through arbitrary folders for them. If a team's levels are all in one place, it is much harder to accidentally not cook a map in a build. It also simplifies lighting build scripts as well QA processes.
-
 <a name="2.5"></a>
 <a name="structure-ownership"></a>
-### 2.5 Define Ownership
+### 2.4 Define Ownership
 In teams of more than one, define ownership of zone/assets/features. Some assets like scenes or prefabs do not handle simultaneous changes by multiple people very well, creating conflict. Having a single person who can change (or give the right to change) a given assets helps to avoid that problem.
 
 <a name="2.6"></a>
-<a name="structure-assettypes"></a>
-### 2.6 Do Not Create Folders Called `Assets` or `AssetTypes`
-
-<a name="2.6.1"></a>
-#### Creating a folder named `Assets` is redundant.
-All assets are assets.
-
-<a name="2.6.2"></a>
-#### Creating a folder named `Meshes`, `Textures`, or `Materials` is redundant.
-All asset names are named with their asset type in mind. These folders offer only redundant information and the use of these folders can easily be replaced with the robust and easy to use filtering system the Content Browser provides.
-
-Want to view only static mesh in `Environment/Rocks/`? Simply turn on the Static Mesh filter. If all assets are named correctly, they will also be sorted in alphabetical order regardless of prefixes. Want to view both static meshes and skeletal meshes? Simply turn on both filters. this eliminates the need to potentially have to `Control-Click` select two folders in the Content Browser's tree view.
-
-> This also extends the full path name of an asset for very little benefit. The `SM_` prefix for a static mesh is only three characters, whereas `Meshes/` is seven characters.
-
-Not doing this also prevents the inevitability of someone putting a static mesh or a texture in a `Materials` folder.
-
-<a name="2.7"></a>
 <a name="structure-large-sets"></a>
-### 2.7 Very Large Asset Sets Get Their Own Folder Layout
+### 2.5 Very Large Asset Sets Get Their Own Folder Layout
 
 This can be seen as a pseudo-exception to [2.6](#2.6).
 
@@ -288,11 +235,11 @@ There are certain asset types that have a huge volume of related files where eac
 
 For example, animations that are shared across multiple characters should lay in `Characters/Common/Animations` and may have sub-folders such as `Locomotion` or `Cinematic`.
 
-> This does not apply to assets like textures and materials. It is common for a `Rocks` folder to have a large amount of textures if there are a large amount of rocks, however these textures are generally only related to a few specific rocks and should be named appropriately. Even if these textures are part of a [Material Library](#2.8).
+> This does not apply to assets like textures and materials. It is common for a `Rocks` folder to have a large amount of textures if there are a large amount of rocks, however these textures are generally only related to a few specific rocks and should be named appropriately. Even if these textures are part of a [Material Library](#2.6).
 
-<a name="2.8"></a>
+<a name="2.7"></a>
 <a name="structure-material-library"></a>
-### 2.8 `MaterialLibrary`
+### 2.6 `MaterialLibrary`
 
 If your project makes use of master materials, layered materials, or any form of reusable materials or textures that do not belong to any subset of assets, these assets should be located in `Assets/ProjectName/MaterialLibrary`.
 
@@ -306,7 +253,7 @@ Any testing or debug materials should be within `MaterialLibrary/Debug`. This al
 
 <a name="2.9"></a>
 <a name="scene-structure"></a>
-## 2.9 Scene Structure
+## 2.7 Scene Structure
 Next to the project’s hierarchy, there’s also scene hierarchy. Here is a template that you can adjust to your needs. Use named empty game objects as scene folders.
 
 <pre>
@@ -629,7 +576,7 @@ Do not use booleans to represent complex and/or dependent states. This makes sta
 Example: When defining a weapon, do **not** use `isReloading` and `isEquipping` if a weapon can't be both reloading and equipping. Define an enumeration named `WeaponState` and use a variable with this type named `WeaponState` instead. This makes it far easier to add new states to weapons.
 
 ##### Enums
-Enums use PascalCase and use singular names for enums, SCREAMING_CASE for their members. Exception: bit field enums should be plural. Enums can be placed outside the class space to provide global access.
+Enums use PascalCase and use singular names. Enum members use SCREAMING_CASE. Enums can be placed outside the class space to provide global access.
 
 Example:
 ```
