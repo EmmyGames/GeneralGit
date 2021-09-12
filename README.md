@@ -780,7 +780,7 @@ When naming an asset use these tables to determine the prefix and suffix to use 
 | Level (Lighting)        |            | _Lighting  |                                  |
 | Level (Geometry)        |            | _Geo       |                                  |
 | Level (Gameplay)        |            | _Gameplay  |                                  |
-| Prefab                  |        |            |                                  |
+| Prefab                  | P_       |            |                                  |
 | Material                | M_         |            |                                  |
 | Static Mesh             | SM_       |            |                                  |
 | Skeletal Mesh           | SK_       |            |                                  |
