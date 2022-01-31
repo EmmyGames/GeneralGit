@@ -21,7 +21,7 @@
 <a name="style"></a>
 ### 1.1 Style
 
-This Style guide should be a living document however, and you should propose style guide changes this guide if you feel the change benefits all usages.
+This Style guide should be a living document however, and you should propose style guide changes to this guide if you feel the change benefits all usages.
 
 > ##### *Arguments over style are pointless. There should be a style guide, and you should follow it.*
 > [_Rebecca Murphey_](https://rmurphey.com)
@@ -30,14 +30,6 @@ This Style guide should be a living document however, and you should propose sty
 
 <a name="importantterminology"></a>
 ### 1.2 Important Terminology
-
-<a name="terms-prefab"></a>
-#### Prefabs
-Unity uses the term Prefab for a system that allows you to create, configure, and store a GameObject complete with all its components, property values, and child GameObjects as a reusable Asset.
-
-<a name="terms-level-map"></a>
-#### Levels/Maps/Scene
-Levels refer to what Unity calls Scenes. A level contains a collection of objects.
 
 <a name="terms-serializable"></a>
 #### Serializable
@@ -92,7 +84,7 @@ Assets
                     Air
                         TieFighter
                             (Models, Textures, Materials, Prefabs)
-            <a name="#structure-levels">_Levels</a>
+            <a name="#structure-levels">_Scenes</a>
                 Frontend
                 Act1
                     Level1
@@ -386,7 +378,7 @@ Simply, any function that has an access modifier of Public should have its summa
 /// </summary>
 public void Fire()
 {
-// Fire the gun.
+  // Fire the gun.
 }
 ```
 
@@ -403,9 +395,9 @@ To create Foldout Groups there are 2 options in Unity.
 ```
 [[Serializable](https://docs.unity3d.com/ScriptReference/Serializable.html)]
 public struct PlayerStats
-	{
-        public int MovementSpeed;
-    }
+{
+  public int MovementSpeed;
+}
     
 [FoldoutGroup("Interactable")]
 public int MovementSpeed = 1;
@@ -428,15 +420,15 @@ Insert one space between the comment delimiter (//) and the comment text, as sho
 
 The // (two slashes) style of comment tags should be used in most situations. Where ever possible, place comments above the code instead of beside it. Here are some examples:
 ```
-        // Sample comment above a variable.
-        private int _myInt = 5;
+// Sample comment above a variable.
+private int _myInt = 5;
 ```
 
 #### Regions
 The `#region` directive enables you to collapse and hide sections of code in C# files. The ability to hide code selectively makes your files more manageable and easier to read.
 ```
 #region "This is the code to be collapsed"
-    Private components As System.ComponentModel.Container
+Private components As System.ComponentModel.Container
 #endregion
 ```
 
@@ -563,7 +555,7 @@ A Value Range only needs to be defined if the bounds of a value are known. While
 ###### Boolean Prefix
 All booleans should be named in camelCase and prefixed with a verb.
 
-Example: Use `isDead` and `hasItem`, **not** `Dead` and `Item`.
+Example: Use `isDead` and `hasItem`, **not** `dead` and `item`.
 
 ###### Boolean Names
 All booleans should be named as descriptive adjectives when possible if representing general information.
@@ -841,7 +833,7 @@ All meshes in 3ds Max are lowercase to differentiate them from their FBX export.
 
 | Asset Type              | Prefix     | Suffix     | Notes                            |
 | ----------------------- | ---------- | ---------- | -------------------------------- |
-| Prefab         |        |            |                                  |
+| Prefab         | P_       |            |                                  |
 | Prefab Instance         | I       |            |                                  |
 | Scriptable Object       |     |        | Assigned "Blueprint" label in Editor |
 
