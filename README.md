@@ -58,73 +58,53 @@ There are a few different ways you can name things. Here are some common casing 
 ## 2. Project Structure
 The directory structure style of a project should be considered law. Asset naming conventions and content directory structure go hand in hand, and a violation of either causes unneeded chaos.
 
-In this style, we will be using a structure that relies more on filtering and search abilities of the Project Window for those working with assets to find assets of a specific type instead of a structure that groups asset types with folders.
+In this style, we will be using a structure that sorts by feature type and relies more on filtering and search abilities of the Project Window.
 
 > Using a prefix [naming convention](#asset-name-modifiers), using folders to contain assets of similar types such as `Meshes`, `Textures`, and `Materials` is a redundant practice as asset types will already both sorted by prefix as well as able to be filtered in the content browser.
 <pre>
 Assets
-    <a name="#structure-developers">_Developers</a>(Use a `_`to keep this folder at the top)
+    <a name="#structure-developers">Developers</a>(Use a `_`to keep this folder at the top)
         DeveloperName
             (Work in progress assets)
     <a name="structure-top-level">ProjectName</a>
-            Characters
-            	Anakin
-            FX
-                Vehicles
-                    Abilities
-                        IonCannon
-                            (Particle Systems, Textures)
-                Weapons
-            Gameplay
-                Characters
-                Equipment
-                Input
-                Vehicles
-                    Abilities
-                    Air
-                        TieFighter
-                            (Models, Textures, Materials, Prefabs)
             <a name="#structure-levels">_Scenes</a>
-                Frontend
                 Act1
                     Level1
-            Lighting
-                HDRI
-                Lut
-                Textures
-            MaterialLibrary
-            	Debug
-            	Shaders
-            Objects
+                Frontend
+                ...
+            Characters
+                Creatures
+                Enemies
+                Player
+                ...
+            Environment
                 Architecture (Single use big objects)
                     DeathStar
                 Props (Repeating objects to fill a level)
                     ObjectSets
                         DeathStar
-            Scripts
-                AI
-                Gameplay
-                    Input
-                Tools
-            Sound
-                Characters
-                Vehicles
-                    TieFighter
-                        Abilities
-                            Afterburners
+            Equipment
                 Weapons
+                  Guns
+                  Swords
+                  ...
+                ...
+            Gameplay
+            MaterialLibrary
+            	Debug
+            	Shaders
+            Music
+            Settings
+                HDRI
+                Lighting
+                ...
             UI
                 Art
                     Buttons
                 Resources
                     Fonts
-    ExpansionPack (DLC)
     Plugins
-    ThirdPartySDK  
 </pre>
-
-
-
 
 The reasons for this structure are listed in the following sub-sections.
 
@@ -136,17 +116,13 @@ The reasons for this structure are listed in the following sub-sections.
 
 > 2.3 [Developer Folders](#structure-developers)
 
-> 2.4 [Levels](#levels)
+> 2.4 [Define Ownership](#structure-ownership)
 
-> 2.5 [Define Ownership](#structure-ownership)
+> 2.5 [Large Sets](#structure-large-sets)
 
-> 2.6 [`Assets` and `AssetTypes`](#structure-assettypes)
+> 2.6 [Material Library](#structure-material-library)
 
-> 2.7 [Large Sets](#structure-large-sets)
-
-> 2.8 [Material Library](#structure-material-library)
-
-> 2.9 [Scene Structure](#scene-structure)
+> 2.7 [Scene Structure](#scene-structure)
 
 
 <a name="2.1"></a>
@@ -198,9 +174,6 @@ You can not trust 3rd party content to fully conform to the [top level folder ru
 
 When adhering to [2.2](#2.2), the worst 3rd party conflict you can have is if two 3rd party assets both have the same sample content. If all your assets are in a project specific folder, including sample content you may have moved into your folder, your project will never break.
 
-#### DLC, Sub-Projects, and Patches Are Easily Maintained
-If your project plans to release DLC or has multiple sub-projects associated with it that may either be migrated out or simply not cooked in a build, assets relating to these projects should have their own separate top level content folder. This make cooking DLC separate from main project content far easier. Sub-projects can also be migrated in and out with minimal effort. If you need to change a material of an asset or add some very specific asset override behavior in a patch, you can easily put these changes in a patch folder and work safely without the chance of breaking the core project.
-
 <a name="2.3"></a>
 <a name="structure-developers"></a>
 ### 2.3 Use Developers Folder For Local Testing
@@ -231,12 +204,13 @@ For example, animations that are shared across multiple characters should lay in
 
 <a name="2.7"></a>
 <a name="structure-material-library"></a>
-### 2.6 `MaterialLibrary`
+### 2.6 `MaterialLibrary and Scripts`
 
 If your project makes use of master materials, layered materials, or any form of reusable materials or textures that do not belong to any subset of assets, these assets should be located in `Assets/ProjectName/MaterialLibrary`.
 
 This way all 'global' materials have a place to live and are easily located.
 
+Similarly, most scripts should be in folders alongside the objects that they are apart of, but there will be some master scripts that don't relate to objects or relate to a wide variety of objects.
 > This also makes it incredibly easy to enforce a 'use material instances only' policy within a project. If all artists and assets should be using material instances, then the only regular material assets that should exist are within this folder. You can easily verify this by searching for base materials in any folder that isn't the `MaterialLibrary`.
 
 The `MaterialLibrary` doesn't have to consist of purely materials. Shared utility textures, material functions, and other things of this nature should be stored here as well within folders that designate their intended purpose. For example, generic noise textures should be located in `MaterialLibrary/Utility`.
