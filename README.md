@@ -284,9 +284,9 @@ Within each of these groups order by access:
 ```
 namespace ProjectName
 {
-	/// <summary>  
-	/// Brief summary of what the class does
-	/// </summary>
+    /// <summary>  
+    /// Brief summary of what the class does
+    /// </summary>
     public class Account
     {
       #region Fields
@@ -294,38 +294,36 @@ namespace ProjectName
       [Tooltip("Public variables set in the Inspector, should have a Tooltip")]
       public static string BankName;
       
-	  /// <summary>  
-	  /// They should also have a summary
-	  /// </summary>
+      /// <summary>  
+      /// They should also have a summary
+      /// </summary>
       public static decimal Reserves;
  
-	  public string BankName;
-	  public const string SHIPPING_TYPE = "DropShip";
+      public string BankName;
+      public const string SHIPPING_TYPE = "DropShip";
 	  
-	  private float _timeToDie;
+      private float _timeToDie;
 	  
-	  #endregion
-	  
-	  #region Properties
+      #endregion
+      #region Properties
 	  
       public string number {get; set;}
       public DateTime dateOpened {get; set;}
       public DateTime dateClosed {get; set;}
       public decimal balance {get; set;}
             
-	  #endregion
-	 
-	  #region LifeCycle
+      #endregion
+      #region LifeCycle
 	  
-      public Awake()
+      private void Awake()
       {
         // ...
       }
       
       #endregion
-	  #region Public Methods
+      #region Public Methods
 	  
-      public AddObjectToBank()
+      public void AddObjectToBank()
       {
         // ...
       }
