@@ -10,7 +10,7 @@ You will get permission denied so save the file somewhere else and manually drag
 ```
 using UnityEngine;
 
-#ROOTNAMESPACEGEING#
+#ROOTNAMESPACEBEGIN#
 /// <summary>
 /// Brief summary of what the class does
 /// </summary>
