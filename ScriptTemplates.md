@@ -15,12 +15,7 @@ using UnityEngine;
 /// Brief summary of what the class does
 /// </summary>
 public class #SCRIPTNAME# : MonoBehaviour
-{
-    #region Fields
-    
-    #endregion
-    #region LifeCycle
-    
+{   
     private void Awake()
     {
         #NOTRIM#
@@ -30,14 +25,6 @@ public class #SCRIPTNAME# : MonoBehaviour
     {
         #NOTRIM#
     }
-    
-    #endregion
-    #region Public Methods
-    
-    #endregion
-    #region Private Methods
-    
-    #endregion
 }
 #ROOTNAMESPACEEND#
 ```
